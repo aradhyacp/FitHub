@@ -41,7 +41,12 @@ export default function RegisterPage() {
       console.log("User ID:", authData.user?.id);  // Check this value
 
       if (authError) throw authError;
-
+      const { error: userRegister } = await supabase.from('users').insert([
+        {
+          id: authData.user?.id,
+          role: 'client',
+        },
+      ]);
       const { error: profileError } = await supabase.from('profiles').insert([
         {
           id: authData.user?.id,
